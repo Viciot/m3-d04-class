@@ -1,12 +1,17 @@
 import React , {useState, useEffect} from 'react';
 import './App.css';
 
+import MyGreetings from './MyGreetings'
 
 function App() {
   
   const [color, setColor] = useState()
   const [action, setAction] = useState(false)
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   
+  const hasImage = true;
+
   const getColor = () => {
     const r = Math.floor(Math.random() * 256)
     const g = Math.floor(Math.random() * 256)
@@ -38,8 +43,17 @@ useEffect( ()=>{
       <h1>Hello Pizza Bytes</h1>
 
       {color ? <img src={color.image.named} /> : <p>No color on the state that I can display...</p>}
+      
       <br/>
-      <button onClick={()=>setAction(!action)}>Get new color</button>
+
+      <button onClick={()=>setIsLoggedIn(!isLoggedIn)}>
+        
+        {isLoggedIn ? 'Log out' : 'Log in'} {/* the boolean shortcut will return either a boolean or something to render*/}
+                             {/* since React does not render booleans and truthy falsy values, this works as conditional rendering */}
+
+        </button>
+    
+        {(isLoggedIn || hasImage) && <MyGreetings />}
     </div>
   );
 }
